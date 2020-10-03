@@ -24,4 +24,8 @@ public class Absence
       this.End = absence.End;
       this.Reason = reason;
    }
+   public String AbsenceToDbAddString()
+   {
+      return this.Start + ", " + this.End + ", " + this.Reason;
+   }
 }

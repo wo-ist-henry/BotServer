@@ -1,17 +1,16 @@
-﻿using System;
+﻿using BotServer.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BotServer.Manager
 {
    interface IAbsenceManager
    {
-      List<Absence> GetAbsences();
-      Absence GetAbsenceById(int absenceId);
+      List<DBAbsence> GetAbsences();
+      DBAbsence GetAbsence(Absence absence);
+      DBAbsence GetAbsenceById(int absenceId);
       void AddAbscene(Absence absence);
-      bool Delete(int absenceId);
-      void UpdateAbscence(Absence absence);
-      Absence? CurrentAbsence();
+      void Delete(int absenceId);
+      void UpdateAbscence(DBAbsence absence);
+      DBAbsence CurrentAbsence();
    }
 }

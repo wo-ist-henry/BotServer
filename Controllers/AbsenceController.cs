@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using BotServer.Manager;
+using BotServer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using BotServer.Models;
 
 namespace BotServer.Controllers
 {
@@ -13,18 +11,13 @@ namespace BotServer.Controllers
    [ApiController]
    public class AbsenceController : ControllerBase
    {
-      private readonly AbsenceContext _context;
-
-      public AbsenceController(AbsenceContext context)
-      {
-         _context = context;
-      }
+      private readonly AbsenceManager _absenceManager = new AbsenceManager();
 
       // GET: api/Absence/5
       [HttpGet("{id}")]
-      public async Task<ActionResult<Absence>> GetAbsence(long id)
+      public async Task<ActionResult<DBAbsence>> GetAbsence(long id)
       {
-         var absence = DBAccess.GetAbsence((int)id);
+         var absence = _absenceManager.GetAbsenceById((int)id);
 
          if (absence == null)
          {
@@ -38,28 +31,21 @@ namespace BotServer.Controllers
       // To protect from overposting attacks, enable the specific properties you want to bind to, for
       // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
       [HttpPut("{id}")]
-      public async Task<IActionResult> PutAbsence(long id, Absence absence)
+      public async Task<IActionResult> PutAbsence(long id, DBAbsence absence)
       {
          if (id != absence.Id)
          {
             return BadRequest();
          }
 
-        
+
          try
          {
-            //DBAccess.UpdateAbsence((int)id);
+            _absenceManager.UpdateAbscence(absence);
          }
-         catch (DbUpdateConcurrencyException)
+         catch (AbsenceNotFoundException)
          {
-            if (!AbsenceExists(id))
-            {
-               return NotFound();
-            }
-            else
-            {
-               throw;
-            }
+            return NotFound();
          }
 
          return NoContent();
@@ -69,34 +55,26 @@ namespace BotServer.Controllers
       // To protect from overposting attacks, enable the specific properties you want to bind to, for
       // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
       [HttpPost]
-      public async Task<ActionResult<Absence>> PostAbsence(Absence absence)
+      public ActionResult<DBAbsence> PostAbsence(Absence absence)
       {
-         _context.Absences.Add(absence);
-         await _context.SaveChangesAsync();
-
-         return CreatedAtAction(nameof(GetAbsence), new { id = absence.Id }, absence);
+         _absenceManager.AddAbscene(absence);
+         var newAbsence = _absenceManager.GetAbsence(absence);
+         return newAbsence;
       }
 
       // DELETE: api/Absence/5
       [HttpDelete("{id}")]
-      public async Task<ActionResult<Absence>> DeleteAbsence(long id)
+      public async Task<ActionResult<DBAbsence>> DeleteAbsence(long id)
       {
-         var absence = await _context.Absences.FindAsync(id);
-         if (absence == null)
+         try
+         {
+            _absenceManager.Delete((int)id);
+         }
+         catch (AbsenceNotFoundException)
          {
             return NotFound();
          }
-
-         _context.Absences.Remove(absence);
-         await _context.SaveChangesAsync();
-
-         return absence;
-      }
-
-      private bool AbsenceExists(long id)
-      {
-         return false;
-         //return DBAccess.AbsenceExists(id);
+         return NoContent();
       }
    }
 }

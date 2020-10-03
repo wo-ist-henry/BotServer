@@ -55,7 +55,7 @@ namespace BotServer.Repository
          {
             connection.Open();
             var selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = "select * from absences";
+            selectCmd.CommandText = "SELECT * FROM absences";
 
             using (var reader = selectCmd.ExecuteReader())
             {
@@ -71,21 +71,20 @@ namespace BotServer.Repository
                   absenceList.Add(new Absence(absenceStart, absenceEnd, absenceReason));
                }
             }
+            connection.Close();
          }
          return absenceList;
       }
 
       public Absence? GetAbsenceById(int absenceId)
       {
-         List<Absence> absenceList = new List<Absence>();
-
          var absenceDB = GetAbsenceDB();
 
          using (var connection = new SqliteConnection(absenceDB.ConnectionString))
          {
             connection.Open();
             var selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = "select * from absences where ID = " + absenceId;
+            selectCmd.CommandText = "SELECT * FROM absences WHERE ID = " + absenceId;
 
             using (var reader = selectCmd.ExecuteReader())
             {
@@ -101,18 +100,46 @@ namespace BotServer.Repository
                   return new Absence(absenceStart, absenceEnd, absenceReason);
                }
             }
+            connection.Close();
          }
          return null;
       }
 
       public bool Delete(int absenceId)
       {
-         throw new NotImplementedException();
+         if(GetAbsenceById(absenceId) == null)
+         {
+            return false;
+         }
+
+         var absenceDB = GetAbsenceDB();
+
+         using (var connection = new SqliteConnection(absenceDB.ConnectionString))
+         {
+            connection.Open();
+            var deleteCmd = connection.CreateCommand();
+            deleteCmd.CommandText = "DELETE FROM absences WHERE ID = " + absenceId;
+            deleteCmd.ExecuteNonQuery();
+            connection.Close();
+         }
+         return true;
       }
 
       public void UpdateAbscence(Absence absence)
       {
-         throw new NotImplementedException();
+         if (GetAbsenceById(absence.Id) == null)
+         {
+            return;
+         }
+
+         var absenceDB = GetAbsenceDB();
+
+         using (var connection = new SqliteConnection(absenceDB.ConnectionString))
+         {
+            connection.Open();
+            var updateCmd = connection.CreateCommand();
+            updateCmd.CommandText = "UPDATE absence SET Start = " + absence.Start + ", End = " + absence.End + ", Reason = " + absence.Reason + " where Id = " + absence.Id;
+         }
       }
    }
 }

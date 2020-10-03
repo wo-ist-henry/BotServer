@@ -2,7 +2,7 @@ using System;
 
 public class Absence
 {
-   public long Id { get; set; }
+   public int Id { get; set; }
    public DateTime Start { get; set; }
    public DateTime End { get; set; }
    public string Reason { get; set; }
@@ -26,6 +26,6 @@ public class Absence
    }
    public String AbsenceToDbAddString()
    {
-      return this.Start + ", " + this.End + ", " + this.Reason;
+      return $"'{this.Start}', '{this.End}','{this.End}'";
    }
 }

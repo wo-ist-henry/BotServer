@@ -8,7 +8,7 @@ namespace BotServer.Repository
    public interface IAbsenceRepository 
    {
       List<Absence> GetAbsences();
-      Absence GetAbsenceById(int id);
+      Absence GetAbsenceById(int absenceId);
       void AddAbscene(Absence absence);
       bool Delete(int absenceId);
       void UpdateAbscence(Absence absence);

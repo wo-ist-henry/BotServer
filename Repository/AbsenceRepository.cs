@@ -1,10 +1,6 @@
-﻿using BotServer.Models;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BotServer.Repository
 {
@@ -39,7 +35,7 @@ namespace BotServer.Repository
          {
             connection.Open();
             var addCommand = connection.CreateCommand();
-            addCommand.CommandText = "INSERT INTO absence (Start, End, Reason) VALUES(" + absence.AbsenceToDbAddString() + ")";
+            addCommand.CommandText = $"INSERT INTO absence (Start, End, Reason) VALUES({absence.AbsenceToDbAddString()})";
             addCommand.ExecuteNonQuery();
             connection.Close();
          }
@@ -84,7 +80,7 @@ namespace BotServer.Repository
          {
             connection.Open();
             var selectCmd = connection.CreateCommand();
-            selectCmd.CommandText = "SELECT * FROM absences WHERE ID = " + absenceId;
+            selectCmd.CommandText = $"SELECT * FROM absences WHERE ID = {absenceId}";
 
             using (var reader = selectCmd.ExecuteReader())
             {
@@ -118,7 +114,7 @@ namespace BotServer.Repository
          {
             connection.Open();
             var deleteCmd = connection.CreateCommand();
-            deleteCmd.CommandText = "DELETE FROM absences WHERE ID = " + absenceId;
+            deleteCmd.CommandText = $"DELETE FROM absences WHERE ID = {absenceId}";
             deleteCmd.ExecuteNonQuery();
             connection.Close();
          }
@@ -138,7 +134,7 @@ namespace BotServer.Repository
          {
             connection.Open();
             var updateCmd = connection.CreateCommand();
-            updateCmd.CommandText = "UPDATE absence SET Start = " + absence.Start + ", End = " + absence.End + ", Reason = " + absence.Reason + " where Id = " + absence.Id;
+            updateCmd.CommandText = $"UPDATE absence SET Start = '{absence.Start}', End = '{absence.End }', Reason = '{absence.Reason}' WHERE Id = {absence.Id}";
          }
       }
    }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using BotServer.Models;
+using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 
@@ -41,9 +42,9 @@ namespace BotServer.Repository
          }
       }
 
-      public List<Absence> GetAbsences()
+      public List<DBAbsence> GetAbsences()
       {
-         List<Absence> absenceList = new List<Absence>();
+         List<DBAbsence> absenceList = new List<DBAbsence>();
 
          var absenceDB = GetAbsenceDB();
 
@@ -57,6 +58,7 @@ namespace BotServer.Repository
             {
                while (reader.Read())
                {
+                  var absenceId = reader.GetString(0);
                   var absenceStart = reader.GetString(1);
                   var absenceEnd = reader.GetString(2);
                   var absenceReason = reader.GetString(3);
@@ -64,7 +66,7 @@ namespace BotServer.Repository
                   Console.WriteLine(absenceEnd);
                   Console.WriteLine(absenceReason);
 
-                  absenceList.Add(new Absence(absenceStart, absenceEnd, absenceReason));
+                  absenceList.Add(new DBAbsence(absenceId, absenceStart, absenceEnd, absenceReason));
                }
             }
             connection.Close();
@@ -72,7 +74,7 @@ namespace BotServer.Repository
          return absenceList;
       }
 
-      public Absence? GetAbsenceById(int absenceId)
+      public DBAbsence GetAbsenceById(int absenceId)
       {
          var absenceDB = GetAbsenceDB();
 
@@ -89,11 +91,8 @@ namespace BotServer.Repository
                   var absenceStart = reader.GetString(1);
                   var absenceEnd = reader.GetString(2);
                   var absenceReason = reader.GetString(3);
-                  Console.WriteLine(absenceStart);
-                  Console.WriteLine(absenceEnd);
-                  Console.WriteLine(absenceReason);
 
-                  return new Absence(absenceStart, absenceEnd, absenceReason);
+                  return new DBAbsence(reader.GetString(0), absenceStart, absenceEnd, absenceReason);
                }
             }
             connection.Close();
@@ -101,11 +100,11 @@ namespace BotServer.Repository
          return null;
       }
 
-      public bool Delete(int absenceId)
+      public void Delete(int absenceId)
       {
-         if(GetAbsenceById(absenceId) == null)
+         if (GetAbsenceById(absenceId) == null)
          {
-            return false;
+            throw new AbsenceNotFoundException();
          }
 
          var absenceDB = GetAbsenceDB();
@@ -118,14 +117,13 @@ namespace BotServer.Repository
             deleteCmd.ExecuteNonQuery();
             connection.Close();
          }
-         return true;
       }
 
-      public void UpdateAbscence(Absence absence)
+      public void UpdateAbscence(DBAbsence absence)
       {
          if (GetAbsenceById(absence.Id) == null)
          {
-            return;
+            throw new AbsenceNotFoundException();
          }
 
          var absenceDB = GetAbsenceDB();

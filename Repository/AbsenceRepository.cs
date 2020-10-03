@@ -29,7 +29,7 @@ namespace BotServer.Repository
             connection.Close();
 
          }
-            return connectionStringBuilder;
+         return connectionStringBuilder;
       }
       public void AddAbscene(Absence absence)
       {
@@ -45,6 +45,49 @@ namespace BotServer.Repository
          }
       }
 
-   
+      public List<Absence> GetAbsences()
+      {
+         List<Absence> absenceList = new List<Absence>();
+
+         var absenceDB = GetAbsenceDB();
+
+         using (var connection = new SqliteConnection(absenceDB.ConnectionString))
+         {
+            connection.Open();
+            var selectCmd = connection.CreateCommand();
+            selectCmd.CommandText = "select * from absences";
+
+            using (var reader = selectCmd.ExecuteReader())
+            {
+               while (reader.Read())
+               {
+                  var absenceStart = reader.GetString(1);
+                  var absenceEnd = reader.GetString(2);
+                  var absenceReason = reader.GetString(3);
+                  Console.WriteLine(absenceStart);
+                  Console.WriteLine(absenceEnd);
+                  Console.WriteLine(absenceReason);
+
+                  absenceList.Add(new Absence(absenceStart, absenceEnd, absenceReason));
+               }
+            }
+         }
+         return absenceList;
+      }
+
+      public Absence GetAbsenceById(int id)
+      {
+         throw new NotImplementedException();
+      }
+
+      public bool Delete(int absenceId)
+      {
+         throw new NotImplementedException();
+      }
+
+      public void UpdateAbscence(Absence absence)
+      {
+         throw new NotImplementedException();
+      }
    }
 }

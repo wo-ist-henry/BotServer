@@ -7,7 +7,7 @@ namespace BotServer.Repository
 {
    public interface IAbsenceRepository 
    {
-      IEnumerable<Absence> GetAbsences();
+      List<Absence> GetAbsences();
       Absence GetAbsenceById(int id);
       void AddAbscene(Absence absence);
       bool Delete(int absenceId);

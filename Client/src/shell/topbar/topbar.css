@@ -1,0 +1,20 @@
+.Topbar {
+    display: flex;
+    height: 80px;
+}
+
+.Topbar--logo {
+    width: 120px;
+    background-color: #eeff64;
+}
+
+.Topbar--logo > svg {
+    width: 100%;
+    height: 100%;
+}
+
+.Topbar--app-name {
+    align-self: center;
+    font-size: 28px;
+    padding: 0 20px;
+}

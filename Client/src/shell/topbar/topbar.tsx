@@ -12,7 +12,7 @@ export default function Topbar() {
                 </svg>
             </div>
 
-            <div className="Topbar--app-name">
+            <div className="Topbar--app-name" data-testid="appName">
                 Wo ist Henry?
             </div>
         </div>

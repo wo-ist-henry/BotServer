@@ -23,7 +23,7 @@ describe('Content Tests', () => {
         expect(addContent).not.toBeInTheDocument();
     });
 
-    it('COntent shows the Add page when URL is /add', () => {
+    it('Content shows the Add page when URL is /add', () => {
         render(
             <MemoryRouter initialEntries={['/add']}>
                 <Content/>

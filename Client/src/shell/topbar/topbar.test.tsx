@@ -1,5 +1,5 @@
 import React from 'react';
-import {render, RenderOptions, screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import Topbar from "./topbar";
 import {act} from "react-dom/test-utils";
 

@@ -1,0 +1,8 @@
+.Sidenav--nav > a {
+    display: block;
+    padding: 4px 8px;
+}
+
+.Sidenav--nav > a:hover {
+    background-color: #eefb64;
+}

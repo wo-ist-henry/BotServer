@@ -1,6 +1,6 @@
 .Topbar {
     display: flex;
-    height: 80px;
+    height: 100%;
 }
 
 .Topbar--logo {

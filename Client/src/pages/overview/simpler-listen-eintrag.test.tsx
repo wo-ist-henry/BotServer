@@ -8,7 +8,7 @@ describe('Simpler Listeneintrag', () => {
         
         ${'Test'} | ${'Inhalt'} | ${'Sowohl der Titel, als auch Inhalt werden in den vorgesehenen Containern gerendert'}
     `('$testText', ({titel, inhalt}) => {
-        render(<SimplerListenEintrag titel={titel} inhalt={inhalt}/>);
+        render(<SimplerListenEintrag titel={titel} inhalt={inhalt} icon="''" status="aktuell"/>);
 
         const titelElem = screen.queryByTestId('Simpler-Listen-Eintrag--titel');
         const inhaltElem = screen.queryByTestId('Simpler-Listen-Eintrag--inhalt');
@@ -21,7 +21,7 @@ describe('Simpler Listeneintrag', () => {
     });
 
     it('Wenn der Inhalt leer gelassen wird, wird ein Standard-Text angezeigt', () => {
-        render(<SimplerListenEintrag titel="Foo" inhalt={undefined}/>);
+        render(<SimplerListenEintrag titel="Foo" inhalt={undefined} icon="''" status="aktuell"/>);
 
         const titelElem = screen.queryByTestId('Simpler-Listen-Eintrag--titel');
         const inhaltElem = screen.queryByTestId('Simpler-Listen-Eintrag--inhalt');
@@ -32,4 +32,6 @@ describe('Simpler Listeneintrag', () => {
         expect(titelElem).toHaveTextContent('Foo');
         expect(inhaltElem).toHaveTextContent(/^Es wurde keine genauere Beschreibung hinterlegt.$/);
     });
+
+    // TODO: Status Test
 });

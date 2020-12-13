@@ -2,7 +2,7 @@ import OverviewPage, {fakeFetchEintraege} from "./overview-page";
 import {act, render, screen} from "@testing-library/react";
 
 
-describe('sadasdasdad', () => {
+describe('Overview Page', () => {
     it('Die Seite zeigt alle Einträge des States an', async () => {
         await act(async () => {
             render(<OverviewPage/>);
@@ -19,4 +19,6 @@ describe('sadasdasdad', () => {
 
         expect(eintraege).toHaveLength(mockEintraege.length);
     })
+
+    // TODO: Add test that calculates icon status
 })

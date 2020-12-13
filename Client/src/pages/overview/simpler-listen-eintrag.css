@@ -1,0 +1,13 @@
+.Simpler-Listen-Eintrag {
+    background-color: #cccccc;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.Simpler-Listen-Eintrag--titel {
+    font-size: 20px;
+}
+
+.Simpler-Listen-Eintrag--kein-inhalt {
+    font-style: italic;
+}

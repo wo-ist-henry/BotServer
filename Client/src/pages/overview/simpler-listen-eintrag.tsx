@@ -1,17 +1,34 @@
 import './simpler-listen-eintrag.css';
-import WoIstHenryIcon from "../../dumb/icon/wih-icon";
+import WoIstHenryIcon, {ValideIcons} from "../../dumb/icon/wih-icon";
+
+export type ListenStatus = 'nichtBegonnen' | 'aktuell' | 'abgeschlossen';
 
 interface ListenEintragModel {
     icon: string;
     titel: string;
     inhalt?: string;
+    status: ListenStatus;
 }
 
-export default function SimplerListenEintrag({inhalt, titel}: ListenEintragModel) {
+export default function SimplerListenEintrag({inhalt, titel, status}: ListenEintragModel) {
+    function statusZuIcon(): ValideIcons {
+        switch (status) {
+            case "nichtBegonnen": {
+                return 'clock';
+            }
+            case "abgeschlossen": {
+                return 'check-circle';
+            }
+            case "aktuell": {
+                return 'at';
+            }
+        }
+    }
+
     return (
         <div className="Simpler-Listen-Eintrag" data-testid="SimplerListenEintrag">
             <div className="Simpler-Listen-Eintrag--icon-prefix">
-                <WoIstHenryIcon icon={"check-circle"}/>
+                <WoIstHenryIcon icon={statusZuIcon()}/>
             </div>
 
             <div className="Simpler-Listen-Eintrag--content">

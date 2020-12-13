@@ -1,0 +1,8 @@
+.Overview-Page--list-wrapper {
+    padding: 16px;
+    max-width: 500px;
+}
+
+.Simpler-Listen-Eintrag:not(:first-child) {
+    margin-top: 16px;
+}

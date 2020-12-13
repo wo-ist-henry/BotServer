@@ -62,9 +62,10 @@ export default function OverviewPage() {
 
             <div className="Overview-Page--list-wrapper" data-testid="Overview-Page--list-wrapper">
                 {eintraege.map(eintrag => <SimplerListenEintrag
-                        key={eintrag.id}
-                        titel={eintrag.ort}
-                        inhalt={eintrag.beschreibung}
+                    key={eintrag.id}
+                    icon="check-circle"
+                    titel={eintrag.ort}
+                    inhalt={eintrag.beschreibung}
                     />
                 )}
             </div>

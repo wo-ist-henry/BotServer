@@ -1,7 +1,18 @@
 .Simpler-Listen-Eintrag {
+    display: flex;
     background-color: #cccccc;
     border-radius: 4px;
     padding: 4px 8px;
+}
+
+
+.Simpler-Listen-Eintrag--icon-prefix {
+    flex: 50px 0;
+    font-size: 36px;
+}
+
+.Simpler-Listen-Eintrag--content {
+    flex: 1;
 }
 
 .Simpler-Listen-Eintrag--titel {

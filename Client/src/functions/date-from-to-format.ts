@@ -1,9 +1,10 @@
 interface FormatOptions {
     from: Date;
     to?: Date;
+    useFromPrefix?: boolean;
 }
 
-export default function DateFromToFormat({from, to}: FormatOptions) {
+export default function DateFromToFormat({from, to, useFromPrefix}: FormatOptions) {
     if (from == null) {
         return undefined;
     }
@@ -12,7 +13,7 @@ export default function DateFromToFormat({from, to}: FormatOptions) {
 
     if (to == null) {
         const prefix = from > new Date() ? 'from' : 'since';
-        return `${prefix} ${output}`;
+        return useFromPrefix ? `${prefix} ${output}` : output;
     }
 
     output += ` - ${fillLeadingZero(to.getHours())}:${fillLeadingZero(to.getMinutes())}`;

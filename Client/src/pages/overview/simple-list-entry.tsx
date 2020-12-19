@@ -37,10 +37,12 @@ export default function SimpleListEntry({content, title, status, momentFrom, mom
             <div className="Simple-List-Entry--content-wrapper">
                 <div className="Simple-List-Entry--title" data-testid="Simple-List-Entry--title">
                     <div className="Simple-List-Entry--title-text">{title}</div>
-                    <div className="Simple-List-Entry--title-date">{DateFromToFormat({
-                        from: momentFrom,
-                        to: momentUntil
-                    })}</div>
+                    <div className="Simple-List-Entry--title-date" data-testid="Simple-List-Entry--title-date">
+                        {DateFromToFormat({
+                            from: momentFrom,
+                            to: momentUntil
+                        })}
+                    </div>
                 </div>
 
                 <div className="Simple-List-Entry--content" data-testid="Simple-List-Entry--content">

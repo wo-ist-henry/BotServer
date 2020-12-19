@@ -1,4 +1,4 @@
-.Simpler-Listen-Eintrag {
+.Simple-List-Entry {
     display: flex;
     background-color: #cccccc;
     border-radius: 4px;
@@ -15,10 +15,10 @@
     flex: 1;
 }
 
-.Simpler-Listen-Eintrag--titel {
+.Simple-List-Entry--title {
     font-size: 20px;
 }
 
-.Simpler-Listen-Eintrag--kein-inhalt {
+.Simple-List-Entry--no-content {
     font-style: italic;
 }

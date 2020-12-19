@@ -1,23 +1,23 @@
-import OverviewPage, {fakeFetchEintraege} from "./overview-page";
+import OverviewPage, {fakeFetchEntries} from "./overview-page";
 import {act, render, screen} from "@testing-library/react";
 
 
-describe('Overview Page', () => {
-    it('Die Seite zeigt alle Einträge des States an', async () => {
+describe('OverviewPage', () => {
+    it('This page shows all the entries of the state', async () => {
         await act(async () => {
             render(<OverviewPage/>);
         });
 
-        const eintragWrapper = screen.getByTestId('Overview-Page--list-wrapper');
+        const entryWrapper = screen.getByTestId('Overview-Page--list-wrapper');
 
-        expect(eintragWrapper).toBeInTheDocument();
-        expect(eintragWrapper).not.toBeEmptyDOMElement();
+        expect(entryWrapper).toBeInTheDocument();
+        expect(entryWrapper).not.toBeEmptyDOMElement();
 
 
-        const mockEintraege = await fakeFetchEintraege(); // Nur bis Umbau
-        const eintraege = screen.getAllByTestId('SimplerListenEintrag');
+        const mockEntries = await fakeFetchEntries(); // Until we refactor it
+        const entries = screen.getAllByTestId('Simple-List-Entry');
 
-        expect(eintraege).toHaveLength(mockEintraege.length);
+        expect(entries).toHaveLength(mockEntries.length);
     })
 
     // TODO: Add test that calculates icon status

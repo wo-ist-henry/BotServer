@@ -12,7 +12,7 @@ export type ListStatus = 'notStarted' | 'active' | 'done';
 
 
 export default function SimpleListEntry({content, title, status}: ListEntryModel) {
-    function statusZuIcon(): ValidIcons {
+    function statusToIcon(): ValidIcons {
         switch (status) {
             case "notStarted": {
                 return 'clock';
@@ -29,7 +29,7 @@ export default function SimpleListEntry({content, title, status}: ListEntryModel
     return (
         <div className="Simple-List-Entry" data-testid="Simple-List-Entry">
             <div className="Simple-List-Entry--icon-prefix">
-                <WoIstHenryIcon icon={statusZuIcon()}/>
+                <WoIstHenryIcon icon={statusToIcon()}/>
             </div>
 
             <div className="Simple-List-Entry--content-wrapper">

@@ -3,6 +3,6 @@
     max-width: 500px;
 }
 
-.Simpler-Listen-Eintrag:not(:first-child) {
+.Simple-List-Entry:not(:first-child) {
     margin-top: 16px;
 }

@@ -19,4 +19,6 @@ describe('OverviewPage', () => {
 
         expect(entries).toHaveLength(mockEntries.length);
     })
+
+    // TODO: Add test that calculates icon status
 })

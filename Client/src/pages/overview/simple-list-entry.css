@@ -1,7 +1,18 @@
 .Simple-List-Entry {
-    background-color: #cccccc;
+    display: flex;
+    background-color: #ebebeb;
     border-radius: 4px;
     padding: 4px 8px;
+}
+
+
+.Simple-List-Entry--icon-prefix {
+    flex: 50px 0;
+    font-size: 36px;
+}
+
+.Simple-List-Entry--content-wrapper {
+    flex: 1;
 }
 
 .Simple-List-Entry--title {

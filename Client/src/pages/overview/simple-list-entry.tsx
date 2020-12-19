@@ -1,17 +1,19 @@
 import './simple-list-entry.css';
 import WoIstHenryIcon, {ValidIcons} from "../../dumb/icon/wih-icon";
+import DateFromToFormat from "../../functions/date-from-to-format";
 
 interface ListEntryModel {
-    icon: string;
     title: string;
     content?: string;
+    momentFrom: Date;
+    momentUntil?: Date;
     status: ListStatus;
 }
 
 export type ListStatus = 'notStarted' | 'active' | 'done';
 
 
-export default function SimpleListEntry({content, title, status}: ListEntryModel) {
+export default function SimpleListEntry({content, title, status, momentFrom, momentUntil}: ListEntryModel) {
     function statusToIcon(): ValidIcons {
         switch (status) {
             case "notStarted": {
@@ -34,7 +36,13 @@ export default function SimpleListEntry({content, title, status}: ListEntryModel
 
             <div className="Simple-List-Entry--content-wrapper">
                 <div className="Simple-List-Entry--title" data-testid="Simple-List-Entry--title">
-                    {title}
+                    <div className="Simple-List-Entry--title-text">{title}</div>
+                    <div className="Simple-List-Entry--title-date" data-testid="Simple-List-Entry--title-date">
+                        {DateFromToFormat({
+                            from: momentFrom,
+                            to: momentUntil
+                        })}
+                    </div>
                 </div>
 
                 <div className="Simple-List-Entry--content" data-testid="Simple-List-Entry--content">

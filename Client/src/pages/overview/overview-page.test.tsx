@@ -1,8 +1,8 @@
-import OverviewPage, {fakeFetchEintraege} from "./overview-page";
+import OverviewPage, {fakeFetchEntries} from "./overview-page";
 import {act, render, screen} from "@testing-library/react";
 
 
-describe('sadasdasdad', () => {
+describe('OverviewPage', () => {
     it('This page shows all the entries of the state', async () => {
         await act(async () => {
             render(<OverviewPage/>);
@@ -14,8 +14,8 @@ describe('sadasdasdad', () => {
         expect(entryWrapper).not.toBeEmptyDOMElement();
 
 
-        const mockEntries = await fakeFetchEintraege(); // Until we refactor it
-        const entries = screen.getAllByTestId('SimpleListEntry');
+        const mockEntries = await fakeFetchEntries(); // Until we refactor it
+        const entries = screen.getAllByTestId('Simple-List-Entry');
 
         expect(entries).toHaveLength(mockEntries.length);
     })

@@ -3,7 +3,7 @@ import './overview-page.css';
 import {useEffect, useState} from "react";
 import SimpleListEntry from "./simple-list-entry";
 
-interface Eintrag {
+interface Entry {
     id: number;
     place: string;
     description?: string;
@@ -12,7 +12,7 @@ interface Eintrag {
 }
 
 // Export is only for testing purpose. Will be replaced once real fetching/loading is implemented
-export function fakeFetchEintraege(): Promise<Eintrag[]> {
+export function fakeFetchEntries(): Promise<Entry[]> {
     return Promise.resolve([
         {
             id: 1,
@@ -45,11 +45,11 @@ export function fakeFetchEintraege(): Promise<Eintrag[]> {
 }
 
 export default function OverviewPage() {
-    const [eintraege, setEintraege] = useState<Eintrag[]>([]);
+    const [entries, setEntries] = useState<Entry[]>([]);
 
     useEffect(() => {
-        fakeFetchEintraege().then(eintraege => {
-            setEintraege(eintraege);
+        fakeFetchEntries().then(eintraege => {
+            setEntries(eintraege);
         }).catch(error => {
             // TODO: Implement Error Service..?
             console.error('Error while loading entries: ', error);
@@ -61,7 +61,7 @@ export default function OverviewPage() {
             <h2>Übersicht der Statuseinträge</h2>
 
             <div className="Overview-Page--list-wrapper" data-testid="Overview-Page--list-wrapper">
-                {eintraege.map(eintrag => <SimpleListEntry
+                {entries.map(eintrag => <SimpleListEntry
                         key={eintrag.id}
                         title={eintrag.place}
                         content={eintrag.description}

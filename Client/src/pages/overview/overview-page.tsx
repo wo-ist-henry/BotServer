@@ -1,7 +1,7 @@
 import './overview-page.css';
 
 import {useEffect, useState} from "react";
-import SimpleListEntry, {ListenStatus} from "./simple-list-entry";
+import SimpleListEntry, {ListStatus} from "./simple-list-entry";
 
 interface Entry {
     id: number;
@@ -57,19 +57,19 @@ export default function OverviewPage() {
         })
     }, [])
 
-    function datumZuStatus(eintragIndex: number): ListenStatus {
+    function datumZuStatus(eintragIndex: number): ListStatus {
         const eintrag = eintraege[eintragIndex];
 
         const now = new Date();
         const entryIsInFuture = now < eintrag.zeitpunktAb;
         if (entryIsInFuture) {
-            return "nichtBegonnen";
+            return "notStarted";
         }
         const entryIsInPast = eintrag.zeitpunktBis != null && now > eintrag.zeitpunktBis;
         if (entryIsInPast) {
-            return "abgeschlossen";
+            return "done";
         }
-        return "aktuell";
+        return "active";
     }
 
     return (

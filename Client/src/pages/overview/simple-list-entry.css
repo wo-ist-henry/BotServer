@@ -6,12 +6,12 @@
 }
 
 
-.Simpler-Listen-Eintrag--icon-prefix {
+.Simple-List-Entry--icon-prefix {
     flex: 50px 0;
     font-size: 36px;
 }
 
-.Simpler-Listen-Eintrag--content {
+.Simple-List-Entry--content {
     flex: 1;
 }
 

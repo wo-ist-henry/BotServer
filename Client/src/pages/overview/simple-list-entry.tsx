@@ -1,13 +1,37 @@
 import './simple-list-entry.css';
+import WoIstHenryIcon, {ValidIcons} from "../../dumb/icon/wih-icon";
 
 interface ListEntryModel {
+    icon: string;
     title: string;
     content?: string;
+    status: ListStatus;
 }
 
-export default function SimpleListEntry({content, title}: ListEntryModel) {
+export type ListStatus = 'notStarted' | 'active' | 'done';
+
+
+export default function SimpleListEntry({content, title, status}: ListEntryModel) {
+    function statusZuIcon(): ValidIcons {
+        switch (status) {
+            case "notStarted": {
+                return 'clock';
+            }
+            case "done": {
+                return 'check-circle';
+            }
+            case "active": {
+                return 'at';
+            }
+        }
+    }
+
     return (
         <div className="Simple-List-Entry" data-testid="Simple-List-Entry">
+            <div className="Simple-List-Entry--icon-prefix">
+                <WoIstHenryIcon icon={statusZuIcon()}/>
+            </div>
+
             <div className="Simple-List-Entry--title" data-testid="Simple-List-Entry--title">
                 {title}
             </div>

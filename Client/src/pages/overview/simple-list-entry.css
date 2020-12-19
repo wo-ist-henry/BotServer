@@ -16,7 +16,17 @@
 }
 
 .Simple-List-Entry--title {
+    display: flex;
     font-size: 20px;
+}
+
+.Simple-List-Entry--title-text {
+    flex: 1;
+}
+
+.Simple-List-Entry--title-date {
+    font-size: 14px;
+    color: grey;
 }
 
 .Simple-List-Entry--no-content {

@@ -80,10 +80,11 @@ export default function OverviewPage() {
             <div className="Overview-Page--list-wrapper" data-testid="Overview-Page--list-wrapper">
                 {entries.map((entry, i) => <SimpleListEntry
                         key={entry.id}
-                        icon="check-circle"
                         title={entry.place}
                         content={entry.description}
                         status={dateToStatus(i)}
+                        momentFrom={entry.momentFrom}
+                        momentUntil={entry.momentUntil}
                     />
                 )}
             </div>

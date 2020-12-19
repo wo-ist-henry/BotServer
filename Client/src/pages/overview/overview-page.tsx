@@ -57,15 +57,16 @@ export default function OverviewPage() {
         })
     }, [])
 
-    function datumZuStatus(eintragIndex: number): ListStatus {
-        const eintrag = eintraege[eintragIndex];
+    function dateToStatus(entryIndex: number): ListStatus {
+        const entry = entries[entryIndex];
 
         const now = new Date();
-        const entryIsInFuture = now < eintrag.zeitpunktAb;
+        const entryIsInFuture = now < entry.momentFrom;
+
         if (entryIsInFuture) {
             return "notStarted";
         }
-        const entryIsInPast = eintrag.zeitpunktBis != null && now > eintrag.zeitpunktBis;
+        const entryIsInPast = entry.momentUntil != null && now > entry.momentUntil;
         if (entryIsInPast) {
             return "done";
         }
@@ -80,9 +81,9 @@ export default function OverviewPage() {
                 {entries.map((entry, i) => <SimpleListEntry
                         key={entry.id}
                         icon="check-circle"
-                        titel={entry.place}
-                        inhalt={entry.description}
-                        status={datumZuStatus(i)}
+                        title={entry.place}
+                        content={entry.description}
+                        status={dateToStatus(i)}
                     />
                 )}
             </div>

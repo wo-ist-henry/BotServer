@@ -1,6 +1,6 @@
 .Simple-List-Entry {
     display: flex;
-    background-color: #cccccc;
+    background-color: #ebebeb;
     border-radius: 4px;
     padding: 4px 8px;
 }
@@ -11,7 +11,7 @@
     font-size: 36px;
 }
 
-.Simple-List-Entry--content {
+.Simple-List-Entry--content-wrapper {
     flex: 1;
 }
 

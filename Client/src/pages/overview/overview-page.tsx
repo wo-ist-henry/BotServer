@@ -1,58 +1,58 @@
 import './overview-page.css';
 
 import {useEffect, useState} from "react";
-import SimplerListenEintrag from "./simpler-listen-eintrag";
+import SimpleListEntry from "./simple-list-entry";
 
-interface Eintrag {
+interface Entry {
     id: number;
-    ort: string;
-    beschreibung?: string;
-    zeitpunktAb: Date;
-    zeitpunktBis?: Date;
+    place: string;
+    description?: string;
+    momentFrom: Date;
+    momentUntil?: Date;
 }
 
 // Export is only for testing purpose. Will be replaced once real fetching/loading is implemented
-export function fakeFetchEintraege(): Promise<Eintrag[]> {
+export function fakeFetchEntries(): Promise<Entry[]> {
     return Promise.resolve([
         {
             id: 1,
-            zeitpunktAb: new Date(2020, 12, 2, 6),
-            zeitpunktBis: new Date(2020, 12, 2, 7, 30),
-            ort: 'Zuhause',
-            beschreibung: 'Gerade aufgestanden und gleich gehts zur Arbeit.'
+            momentFrom: new Date(2020, 12, 2, 6),
+            momentUntil: new Date(2020, 12, 2, 7, 30),
+            place: 'Zuhause',
+            description: 'Gerade aufgestanden und gleich gehts zur Arbeit.'
         },
         {
             id: 2,
-            zeitpunktAb: new Date(2020, 12, 2, 7, 30),
-            zeitpunktBis: new Date(2020, 12, 2, 8),
-            ort: 'Unterwegs',
-            beschreibung: 'Auf dem Weg zur Arbeit.'
+            momentFrom: new Date(2020, 12, 2, 7, 30),
+            momentUntil: new Date(2020, 12, 2, 8),
+            place: 'Unterwegs',
+            description: 'Auf dem Weg zur Arbeit.'
         },
         {
             id: 3,
-            zeitpunktAb: new Date(2020, 12, 2, 8),
-            zeitpunktBis: undefined,
-            ort: 'Arbeit',
-            beschreibung: 'Zur Zeit bin ich im Büro.'
+            momentFrom: new Date(2020, 12, 2, 8),
+            momentUntil: undefined,
+            place: 'Arbeit',
+            description: 'Zur Zeit bin ich im Büro.'
         },
         {
             id: 4,
-            zeitpunktAb: new Date(2020, 12, 2, 8, 15),
-            zeitpunktBis: new Date(2020, 12, 2, 8, 20),
-            ort: 'Kaffeemaschine'
+            momentFrom: new Date(2020, 12, 2, 8, 15),
+            momentUntil: new Date(2020, 12, 2, 8, 20),
+            place: 'Kaffeemaschine'
         }
     ]);
 }
 
 export default function OverviewPage() {
-    const [eintraege, setEintraege] = useState<Eintrag[]>([]);
+    const [entries, setEntries] = useState<Entry[]>([]);
 
     useEffect(() => {
-        fakeFetchEintraege().then(eintraege => {
-            setEintraege(eintraege);
+        fakeFetchEntries().then(eintraege => {
+            setEntries(eintraege);
         }).catch(error => {
             // TODO: Implement Error Service..?
-            console.error('Fehler beim Laden der Einträge aufgetreten: ', error);
+            console.error('Error while loading entries: ', error);
         })
     }, [])
 
@@ -61,10 +61,10 @@ export default function OverviewPage() {
             <h2>Übersicht der Statuseinträge</h2>
 
             <div className="Overview-Page--list-wrapper" data-testid="Overview-Page--list-wrapper">
-                {eintraege.map(eintrag => <SimplerListenEintrag
+                {entries.map(eintrag => <SimpleListEntry
                         key={eintrag.id}
-                        titel={eintrag.ort}
-                        inhalt={eintrag.beschreibung}
+                        title={eintrag.place}
+                        content={eintrag.description}
                     />
                 )}
             </div>

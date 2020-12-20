@@ -1,18 +1,11 @@
 import './overview-page.css';
 
 import {useEffect, useState} from "react";
-import SimpleListEntry, {ListStatus} from "./simple-list-entry";
-
-interface Entry {
-    id: number;
-    place: string;
-    description?: string;
-    momentFrom: Date;
-    momentUntil?: Date;
-}
+import {Attendance} from "../../models/attendance";
+import OverviewDayGroup from "./overview-day-group";
 
 // Export is only for testing purpose. Will be replaced once real fetching/loading is implemented
-export function fakeFetchEntries(): Promise<Entry[]> {
+export function fakeFetchEntries(): Promise<Attendance[]> {
     const today = new Date();
     return Promise.resolve([
         {
@@ -46,7 +39,7 @@ export function fakeFetchEntries(): Promise<Entry[]> {
 }
 
 export default function OverviewPage() {
-    const [entries, setEntries] = useState<Entry[]>([]);
+    const [entries, setEntries] = useState<Attendance[]>([]);
 
     useEffect(() => {
         fakeFetchEntries().then(eintraege => {
@@ -57,36 +50,12 @@ export default function OverviewPage() {
         })
     }, [])
 
-    function dateToStatus(entryIndex: number): ListStatus {
-        const entry = entries[entryIndex];
-
-        const now = new Date();
-        const entryIsInFuture = now < entry.momentFrom;
-
-        if (entryIsInFuture) {
-            return "notStarted";
-        }
-        const entryIsInPast = entry.momentUntil != null && now > entry.momentUntil;
-        if (entryIsInPast) {
-            return "done";
-        }
-        return "active";
-    }
-
     return (
         <>
             <h2>Übersicht der Statuseinträge</h2>
 
             <div className="Overview-Page--list-wrapper" data-testid="Overview-Page--list-wrapper">
-                {entries.map((entry, i) => <SimpleListEntry
-                        key={entry.id}
-                        title={entry.place}
-                        content={entry.description}
-                        status={dateToStatus(i)}
-                        momentFrom={entry.momentFrom}
-                        momentUntil={entry.momentUntil}
-                    />
-                )}
+                <OverviewDayGroup entries={entries}/>
             </div>
         </>
     )

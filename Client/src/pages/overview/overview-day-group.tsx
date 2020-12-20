@@ -32,7 +32,7 @@ export default function OverviewDayGroup({entries}: GroupModel) {
     return (
         <>
             {Object.keys(groups).map((date, i) =>
-                <div className="Overview-Day-Group" key={i}>
+                <div className="Overview-Day-Group" data-testid="Overview-Day-Group" key={i}>
                     <h3>{dayOfGroup(date)}</h3>
 
                     {Object.values(groups[date]).map((entry) => <SimpleListEntry

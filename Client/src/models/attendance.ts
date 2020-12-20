@@ -7,3 +7,5 @@ export interface Attendance {
 }
 
 export type AttendanceStatus = 'notStarted' | 'active' | 'done';
+
+export const ATTENDANCE_LOCAL_STORAGE_KEY = 'attendances';

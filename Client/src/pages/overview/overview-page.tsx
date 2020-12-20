@@ -1,58 +1,45 @@
 import './overview-page.css';
 
 import {useEffect, useState} from "react";
-import {Attendance} from "../../models/attendance";
+import {Attendance, ATTENDANCE_LOCAL_STORAGE_KEY} from "../../models/attendance";
 import OverviewDayGroup from "./overview-day-group";
-
-// Export is only for testing purpose. Will be replaced once real fetching/loading is implemented
-export function fakeFetchEntries(): Promise<Attendance[]> {
-    const today = new Date();
-    return Promise.resolve([
-        {
-            id: 1,
-            momentFrom: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 6),
-            momentUntil: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7, 30),
-            place: 'Zuhause',
-            description: 'Gerade aufgestanden und gleich gehts zur Arbeit.'
-        },
-        {
-            id: 2,
-            momentFrom: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 7, 30),
-            momentUntil: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8),
-            place: 'Unterwegs',
-            description: 'Auf dem Weg zur Arbeit.'
-        },
-        {
-            id: 3,
-            momentFrom: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8),
-            momentUntil: undefined,
-            place: 'Arbeit',
-            description: 'Zur Zeit bin ich im Büro.'
-        },
-        {
-            id: 4,
-            momentFrom: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8, 15),
-            momentUntil: new Date(today.getFullYear(), today.getMonth(), today.getDate(), 8, 20),
-            place: 'Kaffeemaschine'
-        }
-    ]);
-}
+import {LoadListDataButton} from "./load-list-data-button";
+import {getMockEntries} from "../../functions/get-mock-attendances";
 
 export default function OverviewPage() {
     const [entries, setEntries] = useState<Attendance[]>([]);
 
     useEffect(() => {
-        fakeFetchEntries().then(eintraege => {
-            setEntries(eintraege);
-        }).catch(error => {
-            // TODO: Implement Error Service..?
-            console.error('Error while loading entries: ', error);
+        const attendanceJson = localStorage.getItem(ATTENDANCE_LOCAL_STORAGE_KEY) || '[]';
+        const attendances = JSON.parse(attendanceJson) as Attendance[];
+        attendances.forEach(a => {
+            a.momentFrom = new Date(a.momentFrom);
+            a.momentUntil = a.momentUntil != null ? new Date(a.momentUntil) : undefined;
         })
+        setEntries(attendances);
     }, [])
+
+    function loadStandardAttendances() {
+        const newEntries = entries.slice();
+        for (const mockEntry of getMockEntries()) {
+            const mockEntryIndex = newEntries.findIndex(e => e.id === mockEntry.id);
+
+            if (mockEntryIndex > -1) {
+                newEntries.splice(mockEntryIndex, 1, mockEntry);
+            } else {
+                newEntries.push(mockEntry);
+            }
+        }
+        localStorage.setItem(ATTENDANCE_LOCAL_STORAGE_KEY, JSON.stringify(newEntries));
+        setEntries(newEntries);
+    }
 
     return (
         <>
-            <h2>Übersicht der Statuseinträge</h2>
+            <h2>
+                Übersicht der Statuseinträge
+                <LoadListDataButton modelsChanged={entries.length === 0} onClick={() => loadStandardAttendances()}/>
+            </h2>
 
             <div className="Overview-Page--list-wrapper" data-testid="Overview-Page--list-wrapper">
                 <OverviewDayGroup entries={entries}/>

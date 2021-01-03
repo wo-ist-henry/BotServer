@@ -1,11 +1,11 @@
-import {Attendance} from "../../models/attendance";
-import SimpleListEntry from "./simple-list-entry";
+import {Attendance} from "../../../models/attendance";
+import SimpleListEntry from "../list-item/simple-list-entry";
 
-interface GroupModel {
+interface OverviewDayGroupProps {
     entries: Attendance[];
 }
 
-export default function OverviewDayGroup({entries}: GroupModel) {
+export default function OverviewDayGroup({entries}: OverviewDayGroupProps) {
     if (entries == null || entries.length === 0) {
         return null;
     }

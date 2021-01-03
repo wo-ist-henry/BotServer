@@ -6,7 +6,7 @@ describe('SimpleListEntry', () => {
         const title = 'Title';
         const content = 'content';
 
-        render(<SimpleListEntry title={title} content={content} status={'active'} momentFrom={new Date()}/>);
+        render(<SimpleListEntry title={title} content={content} momentFrom={new Date()}/>);
 
         const titleElem = screen.queryByTestId('Simple-List-Entry--title');
         const contentElem = screen.queryByTestId('Simple-List-Entry--content');
@@ -19,7 +19,7 @@ describe('SimpleListEntry', () => {
     });
 
     it('If the content is left empty, there will be a placeholder text instaed', () => {
-        render(<SimpleListEntry title="Foo" content={undefined} status={'active'} momentFrom={new Date()}/>);
+        render(<SimpleListEntry title="Foo" content={undefined} momentFrom={new Date()}/>);
 
         const titleElem = screen.queryByTestId('Simple-List-Entry--title');
         const contentElem = screen.queryByTestId('Simple-List-Entry--content');

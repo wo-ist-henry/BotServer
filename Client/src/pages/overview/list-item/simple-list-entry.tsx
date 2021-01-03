@@ -1,7 +1,7 @@
 import './simple-list-entry.css';
-import WoIstHenryIcon, {ValidIcons} from "../../dumb/icon/wih-icon";
-import DateFromToFormat from "../../functions/date-from-to-format";
-import {dateToStatus} from "../../functions/date-to-status";
+import WoIstHenryIcon, {ValidIcons} from "../../../dumb/icon/wih-icon";
+import DateFromToFormat from "../../../functions/date-from-to-format";
+import {dateToStatus} from "../../../functions/date-to-status";
 
 interface ListEntryModel {
     title: string;

@@ -1,6 +1,6 @@
 import {act, render, screen} from "@testing-library/react";
 import OverviewDayGroup from "./overview-day-group";
-import {getMockEntries} from "../../functions/get-mock-attendances";
+import {getMockEntries} from "../../../functions/get-mock-attendances";
 
 describe('OverviewDayGroup', () => {
     it('This component shows all the entries of the prop', async () => {
